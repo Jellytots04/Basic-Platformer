@@ -33,7 +33,6 @@ func _input(event) -> void:
 		_deactivate_camera(currentCamera)
 		_active_camera(2)
 		currentCamera = CameraArray[2]
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
