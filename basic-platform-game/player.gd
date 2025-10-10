@@ -5,13 +5,14 @@ extends CharacterBody3D
 @onready var ZCamera:Camera3D = $CameraController3D/ZCamera
 @onready var CameraNode:Node = $CameraController3D
 var currentcamera:Camera3D
+var suspend = false
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and !suspend:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
@@ -19,6 +20,10 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	currentcamera = CameraNode._what_is_active()
+	if currentcamera == YCamera:
+		suspend = true
+	else:
+		suspend = false
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
