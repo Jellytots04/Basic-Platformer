@@ -62,18 +62,6 @@ mesh = SubResource("BoxMesh_7dm0k")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TestXVisualWall"]
 shape = SubResource("BoxShape3D_ig7tw")
 
-[node name="CameraController" type="Node" parent="."]
-script = ExtResource("1_ig7tw")
-
-[node name="XCamera" type="Camera3D" parent="CameraController"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5, 1, 0)
-
-[node name="ZCamera" type="Camera3D" parent="CameraController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
-
-[node name="YCamera" type="Camera3D" parent="CameraController"]
-transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 4, 0)
-
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
 script = ExtResource("2_0xm2m")
@@ -83,3 +71,15 @@ mesh = SubResource("CapsuleMesh_h2yge")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_1bvp3")
+
+[node name="CameraController" type="Node" parent="Player"]
+script = ExtResource("1_ig7tw")
+
+[node name="XCamera" type="Camera3D" parent="Player/CameraController"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5, 1, 0)
+
+[node name="ZCamera" type="Camera3D" parent="Player/CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
+
+[node name="YCamera" type="Camera3D" parent="Player/CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 4, 0)
