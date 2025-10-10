@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsbljtp4s1qej"]
+
+[ext_resource type="Texture2D" uid="uid://ccjil44xxvt0d" path="res://icon.svg" id="1_0dsd8"]
+
+[node name="CharacterBodyMesh" type="Node3D"]
+
+[node name="ZImage" type="Sprite3D" parent="."]
+visible = false
+texture = ExtResource("1_0dsd8")
+
+[node name="XImage" type="Sprite3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+texture = ExtResource("1_0dsd8")
+
+[node name="YImage" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+visible = false
+texture = ExtResource("1_0dsd8")

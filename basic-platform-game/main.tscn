@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://vbllqd3ufn2x"]
+[gd_scene load_steps=14 format=3 uid="uid://vbllqd3ufn2x"]
 
-[ext_resource type="Script" uid="uid://bl3yi2c7b5fop" path="res://Camera_Controller.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://player.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://camera_controller_3d.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bsbljtp4s1qej" path="res://character_body_mesh.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://cgth4q00xbic2" path="res://character_body_mesh.gd" id="4_1bvp3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,8 +29,6 @@ albedo_color = Color(0.36078432, 1, 0.18039216, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
 size = Vector3(0.1, 1, 2)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_h2yge"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1bvp3"]
 
@@ -66,20 +66,10 @@ shape = SubResource("BoxShape3D_ig7tw")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
 script = ExtResource("2_0xm2m")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-mesh = SubResource("CapsuleMesh_h2yge")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_1bvp3")
 
-[node name="CameraController" type="Node" parent="Player"]
-script = ExtResource("1_ig7tw")
+[node name="CameraController3D" parent="Player" instance=ExtResource("2_h2yge")]
 
-[node name="XCamera" type="Camera3D" parent="Player/CameraController"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5, 1, 0)
-
-[node name="ZCamera" type="Camera3D" parent="Player/CameraController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
-
-[node name="YCamera" type="Camera3D" parent="Player/CameraController"]
-transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 4, 0)
+[node name="CharacterBodyMesh" parent="Player" instance=ExtResource("3_h2yge")]
+script = ExtResource("4_1bvp3")

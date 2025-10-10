@@ -1,9 +1,9 @@
 extends CharacterBody3D
 
-@onready var XCamera:Camera3D = $"CameraController/XCamera"
-@onready var YCamera:Camera3D = $"CameraController/YCamera"
-@onready var ZCamera:Camera3D = $CameraController/ZCamera
-@onready var CameraNode:Node = $CameraController
+@onready var XCamera:Camera3D = $"CameraController3D/XCamera"
+@onready var YCamera:Camera3D = $"CameraController3D/YCamera"
+@onready var ZCamera:Camera3D = $CameraController3D/ZCamera
+@onready var CameraNode:Node = $CameraController3D
 var currentcamera:Camera3D
 
 const SPEED = 5.0
@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and !YCamera.current:
 		velocity.y = JUMP_VELOCITY
 
 	currentcamera = CameraNode._what_is_active()
@@ -26,16 +26,16 @@ func _physics_process(delta: float) -> void:
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		if currentcamera == XCamera:
-			print("Camera X is positive")
+			print("Camera X is positive") # Side scroller camera view
 			velocity.z = -direction.x * SPEED
 
 		if currentcamera == YCamera:
-			print("Camera Y is positive")
+			print("Camera Y is positive") # Top down view for the game
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
 
 		if currentcamera == ZCamera:
-			print("Camera Z is positive") # Think if this as the true view when you press w you walk forward
+			print("Camera Z is positive") # Think if this as the true view when you press w or up you walk forward
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
 
