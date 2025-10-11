@@ -3,6 +3,7 @@ extends Node
 var imageArray:Array[Sprite3D] = []
 var currentImage:Sprite3D
 var activated_sprite:Sprite3D
+@onready var _player_node:CharacterBody3D = $".."
 
 func _ready() -> void:
 	imageArray.append($XImage)
@@ -21,12 +22,13 @@ func _activate_image(index: int):
 	activated_sprite = imageArray[index]
 	
 func _input(event) -> void:
-	if event.is_action_pressed("Xcamera"):
-		_deactivate_image(activated_sprite)
-		_activate_image(0)
-	if event.is_action_pressed("Ycamera"):
-		_deactivate_image(activated_sprite)
-		_activate_image(1)
-	if event.is_action_pressed("Zcamera"):
-		_deactivate_image(activated_sprite)
-		_activate_image(2)
+	if _player_node.is_on_floor():
+		if event.is_action_pressed("Xcamera"):
+			_deactivate_image(activated_sprite)
+			_activate_image(0)
+		if event.is_action_pressed("Ycamera"):
+			_deactivate_image(activated_sprite)
+			_activate_image(1)
+		if event.is_action_pressed("Zcamera"):
+			_deactivate_image(activated_sprite)
+			_activate_image(2)
