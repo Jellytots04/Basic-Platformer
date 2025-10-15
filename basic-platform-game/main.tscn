@@ -247,7 +247,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.525, 0)
 mesh = SubResource("BoxMesh_efxa6")
 
 [node name="GrassLand" type="StaticBody3D" parent="AssetpLANE"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.038, 0, 3.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 
 [node name="Dirt" type="MeshInstance3D" parent="AssetpLANE/GrassLand"]
 mesh = SubResource("BoxMesh_4c57u")
@@ -260,16 +260,32 @@ shape = SubResource("BoxShape3D_efxa6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
 mesh = SubResource("BoxMesh_ycdy4")
 
-[node name="GrassLand" type="StaticBody3D" parent="."]
+[node name="Stage" type="Node3D" parent="."]
+
+[node name="MainLand" type="StaticBody3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.025, 0)
 
-[node name="Dirt" type="MeshInstance3D" parent="GrassLand"]
+[node name="Dirt" type="MeshInstance3D" parent="Stage/MainLand"]
 mesh = SubResource("BoxMesh_4c57u")
 
-[node name="Hitbox" type="CollisionShape3D" parent="GrassLand"]
+[node name="Hitbox" type="CollisionShape3D" parent="Stage/MainLand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
 shape = SubResource("BoxShape3D_efxa6")
 
-[node name="Grass" type="MeshInstance3D" parent="GrassLand"]
+[node name="Grass" type="MeshInstance3D" parent="Stage/MainLand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
+mesh = SubResource("BoxMesh_ycdy4")
+
+[node name="MainLand2" type="StaticBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.025, -8)
+
+[node name="Dirt" type="MeshInstance3D" parent="Stage/MainLand2"]
+mesh = SubResource("BoxMesh_4c57u")
+
+[node name="Hitbox" type="CollisionShape3D" parent="Stage/MainLand2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+shape = SubResource("BoxShape3D_efxa6")
+
+[node name="Grass" type="MeshInstance3D" parent="Stage/MainLand2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
 mesh = SubResource("BoxMesh_ycdy4")

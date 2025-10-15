@@ -16,4 +16,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 8)
 [node name="YCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 8, 0)
 projection = 1
-size = 8.0
+size = 7.0
