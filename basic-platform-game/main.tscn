@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://vbllqd3ufn2x"]
+[gd_scene load_steps=39 format=3 uid="uid://vbllqd3ufn2x"]
 
 [ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://player.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://camera_controller_3d.tscn" id="2_h2yge"]
@@ -18,13 +18,6 @@ background_mode = 2
 sky = SubResource("Sky_ig7tw")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_7dm0k"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ig7tw"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
-albedo_color = Color(0.36078432, 1, 0.18039216, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
 
@@ -56,7 +49,8 @@ albedo_color = Color(0.8894904, 0.9965851, 0.53634155, 1)
 material = SubResource("StandardMaterial3D_1bvp3")
 size = Vector2(20, 20)
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_7mycd"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lquwl"]
+points = PackedVector3Array(-10, 0, -10, -10, 0, 10, 10, 0, -10, 10, 0, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_kek77"]
 size = Vector3(0.1, 1, 2)
@@ -82,6 +76,39 @@ size = Vector3(1, 0.1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_5vw27"]
 size = Vector3(1, 0.1, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
+albedo_color = Color(0.5519331, 0.28889847, 0.23944423, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5vw27"]
+material = SubResource("StandardMaterial3D_lquwl")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kek77"]
+size = Vector3(1, 1.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]
+albedo_color = Color(0.50980395, 0.9137255, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_efxa6"]
+material = SubResource("StandardMaterial3D_4c57u")
+size = Vector3(1, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mycd"]
+albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4c57u"]
+material = SubResource("StandardMaterial3D_7mycd")
+size = Vector3(4, 2, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_efxa6"]
+size = Vector3(4, 2.05, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dg77c"]
+albedo_color = Color(0.50980395, 0.9137255, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ycdy4"]
+material = SubResource("StandardMaterial3D_dg77c")
+size = Vector3(4, 0.05, 8)
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -90,17 +117,6 @@ environment = SubResource("Environment_0xm2m")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
-
-[node name="Floor" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("WorldBoundaryShape3D_7dm0k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(9.545, 0, 0, 0, 9.545, 0, 0, 0, 9.545, 0, 0, 0)
-mesh = SubResource("PlaneMesh_ig7tw")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_0xm2m")
 
 [node name="TestXVisualWall" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0)
@@ -162,7 +178,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0)
 mesh = SubResource("PlaneMesh_lquwl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MapHolder/XZMap/StageFloor"]
-shape = SubResource("WorldBoundaryShape3D_7mycd")
+shape = SubResource("ConvexPolygonShape3D_lquwl")
 
 [node name="Wall" type="StaticBody3D" parent="MapHolder/XZMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0)
@@ -215,3 +231,45 @@ mesh = SubResource("BoxMesh_kek77")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AssetpLANE/Wall"]
 shape = SubResource("BoxShape3D_4c57u")
+
+[node name="GrassTile" type="StaticBody3D" parent="AssetpLANE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -2)
+
+[node name="Dirt" type="MeshInstance3D" parent="AssetpLANE/GrassTile"]
+mesh = SubResource("BoxMesh_5vw27")
+
+[node name="DirtHitBox" type="CollisionShape3D" parent="AssetpLANE/GrassTile"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+shape = SubResource("BoxShape3D_kek77")
+
+[node name="Grass" type="MeshInstance3D" parent="AssetpLANE/GrassTile"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.525, 0)
+mesh = SubResource("BoxMesh_efxa6")
+
+[node name="GrassLand" type="StaticBody3D" parent="AssetpLANE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.038, 0, 3.7)
+
+[node name="Dirt" type="MeshInstance3D" parent="AssetpLANE/GrassLand"]
+mesh = SubResource("BoxMesh_4c57u")
+
+[node name="Hitbox" type="CollisionShape3D" parent="AssetpLANE/GrassLand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+shape = SubResource("BoxShape3D_efxa6")
+
+[node name="Grass" type="MeshInstance3D" parent="AssetpLANE/GrassLand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
+mesh = SubResource("BoxMesh_ycdy4")
+
+[node name="GrassLand" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.025, 0)
+
+[node name="Dirt" type="MeshInstance3D" parent="GrassLand"]
+mesh = SubResource("BoxMesh_4c57u")
+
+[node name="Hitbox" type="CollisionShape3D" parent="GrassLand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+shape = SubResource("BoxShape3D_efxa6")
+
+[node name="Grass" type="MeshInstance3D" parent="GrassLand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
+mesh = SubResource("BoxMesh_ycdy4")
