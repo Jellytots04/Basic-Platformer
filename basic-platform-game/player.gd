@@ -6,6 +6,10 @@ extends CharacterBody3D
 @onready var CameraNode:Node = $CameraController3D
 var currentcamera:Camera3D
 var suspend = false
+# Variables to be used when moving camera views, move player to their last original X Y Z pos
+var lastX: float
+var lastY: float
+var lastZ: float
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -49,3 +53,13 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+func _input(event) -> void:
+	if event.is_action_pressed("Xcamera"):
+		lastX = self.global_position.x
+		self.global_position.x  = -1
+	if event.is_action_pressed("Ycamera"):
+		self.global_position.x = lastX
+	if event.is_action_pressed("Zcamera"):
+		self.global_position.x = lastX
+	pass

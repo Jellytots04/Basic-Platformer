@@ -129,7 +129,7 @@ mesh = SubResource("BoxMesh_7dm0k")
 shape = SubResource("BoxShape3D_ig7tw")
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1, 0.5, 0)
 script = ExtResource("2_0xm2m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
