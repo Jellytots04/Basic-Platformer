@@ -10,6 +10,9 @@ var suspend = false
 var lastX: float
 var lastY: float
 var lastZ: float
+# Variables to be used when player is on a teleporter
+var is_on_teleporter
+var currentTeleporter
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -55,11 +58,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _input(event) -> void:
-	if event.is_action_pressed("Xcamera"):
-		lastX = self.global_position.x
-		self.global_position.x  = -1
-	if event.is_action_pressed("Ycamera"):
-		self.global_position.x = lastX
-	if event.is_action_pressed("Zcamera"):
-		self.global_position.x = lastX
+	if self.is_on_floor():
+		if event.is_action_pressed("Xcamera"):
+			lastX = self.global_position.x
+			self.global_position.x  = -1
+		if event.is_action_pressed("Ycamera") and currentcamera == XCamera:
+			self.global_position.x = lastX
+		if event.is_action_pressed("Zcamera") and currentcamera == XCamera:
+			self.global_position.x = lastX
+	if is_on_teleporter and event.is_action_pressed("ui_accept") and currentcamera == YCamera:
+		currentTeleporter.teleport_player(self)
 	pass

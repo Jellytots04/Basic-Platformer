@@ -1,10 +1,11 @@
-[gd_scene load_steps=39 format=3 uid="uid://vbllqd3ufn2x"]
+[gd_scene load_steps=48 format=3 uid="uid://vbllqd3ufn2x"]
 
 [ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://player.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://camera_controller_3d.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bsbljtp4s1qej" path="res://character_body_mesh.tscn" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://cgth4q00xbic2" path="res://character_body_mesh.gd" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://n7qpkfta034r" path="res://y_mapcontroller.gd" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://dlk6wiphux1u4" path="res://TeleporterScript.gd" id="6_7mycd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -108,6 +109,35 @@ albedo_color = Color(0.50980395, 0.9137255, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_ycdy4"]
 material = SubResource("StandardMaterial3D_dg77c")
 size = Vector3(4, 0.05, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
+size = Vector3(0.1, 4, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dg77c"]
+size = Vector3(4, 4, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_272bh"]
+albedo_color = Color(0.29219002, 0.29219005, 0.29219002, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5vw27"]
+material = SubResource("StandardMaterial3D_272bh")
+height = 0.05
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kek77"]
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efxa6"]
+albedo_color = Color(0.5294118, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dg77c"]
+material = SubResource("StandardMaterial3D_efxa6")
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.01
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lquwl"]
+height = 0.4
+radius = 0.4
 
 [node name="Main" type="Node3D"]
 
@@ -260,6 +290,40 @@ shape = SubResource("BoxShape3D_efxa6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
 mesh = SubResource("BoxMesh_ycdy4")
 
+[node name="BoundaryBox" type="StaticBody3D" parent="AssetpLANE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.027255, 1.8344827, 0)
+
+[node name="WallX" type="CollisionShape3D" parent="AssetpLANE/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 1, 0)
+shape = SubResource("BoxShape3D_lquwl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssetpLANE/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+shape = SubResource("BoxShape3D_dg77c")
+
+[node name="WallX2" type="CollisionShape3D" parent="AssetpLANE/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 1, 0)
+shape = SubResource("BoxShape3D_lquwl")
+
+[node name="TeleopterMesh" type="StaticBody3D" parent="AssetpLANE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56876206, 0.5, 1.7450829)
+
+[node name="Base" type="MeshInstance3D" parent="AssetpLANE/TeleopterMesh"]
+mesh = SubResource("CylinderMesh_5vw27")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssetpLANE/TeleopterMesh"]
+shape = SubResource("CylinderShape3D_kek77")
+
+[node name="Teleporter" type="MeshInstance3D" parent="AssetpLANE/TeleopterMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+mesh = SubResource("CylinderMesh_dg77c")
+
+[node name="TeleporterCollision" type="Area3D" parent="AssetpLANE/TeleopterMesh"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssetpLANE/TeleopterMesh/TeleporterCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("CylinderShape3D_lquwl")
+
 [node name="Stage" type="Node3D" parent="."]
 
 [node name="MainLand" type="StaticBody3D" parent="Stage"]
@@ -289,3 +353,72 @@ shape = SubResource("BoxShape3D_efxa6")
 [node name="Grass" type="MeshInstance3D" parent="Stage/MainLand2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
 mesh = SubResource("BoxMesh_ycdy4")
+
+[node name="BoundaryBox" type="StaticBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+
+[node name="WallX" type="CollisionShape3D" parent="Stage/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 1, 0)
+shape = SubResource("BoxShape3D_lquwl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+shape = SubResource("BoxShape3D_dg77c")
+
+[node name="WallX2" type="CollisionShape3D" parent="Stage/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 1, 0)
+shape = SubResource("BoxShape3D_lquwl")
+
+[node name="WallX3" type="CollisionShape3D" parent="Stage/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 1, -8)
+shape = SubResource("BoxShape3D_lquwl")
+
+[node name="WallX4" type="CollisionShape3D" parent="Stage/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 1, -8)
+shape = SubResource("BoxShape3D_lquwl")
+
+[node name="TeleporterHolder" type="Node3D" parent="Stage"]
+
+[node name="TeleopterMesh" type="StaticBody3D" parent="Stage/TeleporterHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.05, 3)
+
+[node name="Base" type="MeshInstance3D" parent="Stage/TeleporterHolder/TeleopterMesh"]
+mesh = SubResource("CylinderMesh_5vw27")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/TeleporterHolder/TeleopterMesh"]
+shape = SubResource("CylinderShape3D_kek77")
+
+[node name="Teleporter" type="MeshInstance3D" parent="Stage/TeleporterHolder/TeleopterMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+mesh = SubResource("CylinderMesh_dg77c")
+
+[node name="TeleporterCollision" type="Area3D" parent="Stage/TeleporterHolder/TeleopterMesh"]
+disable_mode = 1
+script = ExtResource("6_7mycd")
+target_teleporter_path = NodePath("../../TeleopterMesh2/TeleporterCollision")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/TeleporterHolder/TeleopterMesh/TeleporterCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("CylinderShape3D_lquwl")
+
+[node name="TeleopterMesh2" type="StaticBody3D" parent="Stage/TeleporterHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.05, -11)
+
+[node name="Base" type="MeshInstance3D" parent="Stage/TeleporterHolder/TeleopterMesh2"]
+mesh = SubResource("CylinderMesh_5vw27")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/TeleporterHolder/TeleopterMesh2"]
+shape = SubResource("CylinderShape3D_kek77")
+
+[node name="Teleporter" type="MeshInstance3D" parent="Stage/TeleporterHolder/TeleopterMesh2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+mesh = SubResource("CylinderMesh_dg77c")
+
+[node name="TeleporterCollision" type="Area3D" parent="Stage/TeleporterHolder/TeleopterMesh2"]
+script = ExtResource("6_7mycd")
+target_teleporter_path = NodePath("../../TeleopterMesh/TeleporterCollision")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/TeleporterHolder/TeleopterMesh2/TeleporterCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("CylinderShape3D_lquwl")
