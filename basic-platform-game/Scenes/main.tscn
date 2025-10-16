@@ -1,11 +1,11 @@
 [gd_scene load_steps=48 format=3 uid="uid://vbllqd3ufn2x"]
 
-[ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://player.gd" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://camera_controller_3d.tscn" id="2_h2yge"]
-[ext_resource type="PackedScene" uid="uid://bsbljtp4s1qej" path="res://character_body_mesh.tscn" id="3_h2yge"]
-[ext_resource type="Script" uid="uid://cgth4q00xbic2" path="res://character_body_mesh.gd" id="4_1bvp3"]
-[ext_resource type="Script" uid="uid://n7qpkfta034r" path="res://y_mapcontroller.gd" id="5_lquwl"]
-[ext_resource type="Script" uid="uid://dlk6wiphux1u4" path="res://TeleporterScript.gd" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://Scripts/player.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://Scenes/camera_controller_3d.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bsbljtp4s1qej" path="res://Scenes/character_body_mesh.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://cgth4q00xbic2" path="res://Scripts/character_body_mesh.gd" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://n7qpkfta034r" path="res://Scripts/y_mapcontroller.gd" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://dlk6wiphux1u4" path="res://Scripts/TeleporterScript.gd" id="6_7mycd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
