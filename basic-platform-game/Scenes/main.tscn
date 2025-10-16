@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://vbllqd3ufn2x"]
+[gd_scene load_steps=80 format=3 uid="uid://vbllqd3ufn2x"]
 
 [ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://Scripts/player.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://Scenes/camera_controller_3d.tscn" id="2_h2yge"]
@@ -131,6 +131,26 @@ albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
 material = SubResource("StandardMaterial3D_344ge")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0dxtt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_21xkr"]
+albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6bp64"]
+material = SubResource("StandardMaterial3D_21xkr")
+size = Vector3(0.1, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_344ge"]
+size = Vector3(0.1, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hptm8"]
+albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d1ilt"]
+material = SubResource("StandardMaterial3D_hptm8")
+size = Vector3(0.1, 1.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6iyac"]
+size = Vector3(0.1, 1.5, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ynf5e"]
 albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
@@ -379,6 +399,34 @@ mesh = SubResource("BoxMesh_2rv7x")
 
 [node name="DirtHitBox" type="CollisionShape3D" parent="AssetpLANE/Dirt"]
 shape = SubResource("BoxShape3D_0dxtt")
+
+[node name="DirtWall" type="StaticBody3D" parent="AssetpLANE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AssetpLANE/DirtWall"]
+mesh = SubResource("BoxMesh_6bp64")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssetpLANE/DirtWall"]
+shape = SubResource("BoxShape3D_344ge")
+
+[node name="Archway" type="StaticBody3D" parent="AssetpLANE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.75, -2)
+
+[node name="LeftWall" type="MeshInstance3D" parent="AssetpLANE/Archway"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+mesh = SubResource("BoxMesh_d1ilt")
+
+[node name="LeftWallCollision" type="CollisionShape3D" parent="AssetpLANE/Archway"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+shape = SubResource("BoxShape3D_6iyac")
+
+[node name="LeftWall2" type="MeshInstance3D" parent="AssetpLANE/Archway"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("BoxMesh_d1ilt")
+
+[node name="LeftWallCollision2" type="CollisionShape3D" parent="AssetpLANE/Archway"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+shape = SubResource("BoxShape3D_6iyac")
 
 [node name="Stage" type="Node3D" parent="."]
 
