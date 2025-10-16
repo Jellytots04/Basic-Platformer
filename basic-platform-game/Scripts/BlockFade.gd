@@ -14,7 +14,10 @@ func _process(delta):
 	params.to = player.global_transform.origin
 	params.collide_with_areas = false
 	params.collide_with_bodies = true
-	var result = space_state.intersect_ray(params)
+	var result
+	
+	if self.current:
+		result = space_state.intersect_ray(params)
 	
 	# Restore previous faded objects
 	for obj in fadedObjects:
