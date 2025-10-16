@@ -2,17 +2,16 @@ extends Camera3D
 
 @onready var player
 var fadedObjects = []
-var originalObject = []
+var originalObject = {}
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player = $"../.."
+	player = $"../.." # Or use get_parent().get_parent() if needed
 
 func _process(delta):
 	var space_state = get_world_3d().direct_space_state
 	var params = PhysicsRayQueryParameters3D.new()
 	params.from = global_transform.origin
-	params.to = global_transform.origin
+	params.to = player.global_transform.origin
 	params.collide_with_areas = false
 	params.collide_with_bodies = true
 	var result = space_state.intersect_ray(params)
@@ -21,25 +20,31 @@ func _process(delta):
 	for obj in fadedObjects:
 		reset_material(obj)
 	fadedObjects.clear()
-
+	
 	if result and result.collider != player:
+		print("Collider hit:", result.collider)
 		fade_material(result.collider)
 		fadedObjects.append(result.collider)
 
-func  fade_material(obj):
-	if obj == null:
-		return
-	var mesh_instance = obj as MeshInstance3D
+
+func fade_material(obj):
+	var mesh_instance = get_mesh_instance(obj)
 	if mesh_instance == null:
+		return
+	
+	var mesh = mesh_instance.mesh
+	if mesh == null:
 		return
 		
 	if not originalObject.has(obj):
 		originalObject[obj] = []
-		for i in range(mesh_instance.get_surface_override_material_count()):
+		var surface_count = mesh.get_surface_count()
+		for i in range(surface_count):
 			var mat = mesh_instance.get_surface_override_material(i)
 			originalObject[obj].append(mat)
-			
-	for i in range(mesh_instance.get_surface_override_material_count()):
+
+	var Surface_count = originalObject[obj].size()
+	for i in range(Surface_count):
 		var mat = mesh_instance.get_surface_override_material(i)
 		if mat == null:
 			continue
@@ -48,16 +53,29 @@ func  fade_material(obj):
 		mat.albedo_color.a = 0.3
 		mesh_instance.set_surface_override_material(i, mat)
 
-
 func reset_material(obj):
-	if obj == null:
-		return
-	var mesh_instance = obj as MeshInstance3D
+	var mesh_instance = get_mesh_instance(obj)
 	if mesh_instance == null:
 		return
+	
+	var mesh = mesh_instance.mesh
+	if mesh == null:
+		return
+
 	if originalObject.has(obj):
 		var mats = originalObject[obj]
-		for i in range(mesh_instance.get_surface_override_material_count()):
+		var surface_count = mesh.get_surface_count()
+		for i in range(surface_count):
 			if i < mats.size():
 				mesh_instance.set_surface_override_material(i, mats[i])
-			originalObject.erase(obj)
+		originalObject.erase(obj)
+
+func get_mesh_instance(node):
+	if node is MeshInstance3D:
+		return node
+
+	var mesh_instance_child = node.get_node_or_null("MeshInstance3D")
+	if mesh_instance_child != null:
+		return mesh_instance_child
+
+	return node.find_child("MeshInstance3D")

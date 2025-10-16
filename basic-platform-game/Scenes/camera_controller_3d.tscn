@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://j5c0p7ra284m"]
+[gd_scene load_steps=3 format=3 uid="uid://j5c0p7ra284m"]
 
 [ext_resource type="Script" uid="uid://bl3yi2c7b5fop" path="res://Scripts/Camera_Controller.gd" id="1_olj1j"]
+[ext_resource type="Script" uid="uid://cc3g7ek2bjikh" path="res://Scripts/BlockFade.gd" id="2_yaai3"]
 
 [node name="CameraController3D" type="Node3D"]
 script = ExtResource("1_olj1j")
@@ -12,12 +13,12 @@ size = 4.0
 
 [node name="ZCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 8)
+script = ExtResource("2_yaai3")
+
+[node name="RayCast3D" type="RayCast3D" parent="ZCamera"]
+target_position = Vector3(0, -0.5, -8)
 
 [node name="YCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 8, 0)
 projection = 1
 size = 7.0
-
-[node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 8)
-target_position = Vector3(0, 0, -8)
