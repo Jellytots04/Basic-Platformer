@@ -17,7 +17,7 @@ func _process(delta):
 	var result
 	
 	if self.current:
-		result = space_state.intersect_ray(params)
+		result = space_state.intersect_ray(params) # Returns the objects.
 	
 	# Restore previous faded objects
 	for obj in fadedObjects:
@@ -29,32 +29,45 @@ func _process(delta):
 		fade_material(result.collider)
 		fadedObjects.append(result.collider)
 
-
 func fade_material(obj):
 	var mesh_instance = get_mesh_instance(obj)
+	print("Mesh:", mesh_instance.mesh)
+	print("Surface count:", mesh_instance.mesh.get_surface_count())
+	for i in range(mesh_instance.mesh.get_surface_count()):
+		var mat_override = mesh_instance.get_surface_override_material(i)
+		var mat_base = mesh_instance.mesh.surface_get_material(i)
+		print("Surface ", i, "Override material:", mat_override)
+		print("Surface ", i, "Base material:", mat_base)
 	if mesh_instance == null:
 		return
 	
 	var mesh = mesh_instance.mesh
 	if mesh == null:
 		return
-		
+
 	if not originalObject.has(obj):
 		originalObject[obj] = []
 		var surface_count = mesh.get_surface_count()
+		# print(surface_count)
 		for i in range(surface_count):
 			var mat = mesh_instance.get_surface_override_material(i)
 			originalObject[obj].append(mat)
 
 	var Surface_count = originalObject[obj].size()
+	print("Surface_count original object ", Surface_count)
+
 	for i in range(Surface_count):
+		print("first i ",i)
 		var mat = mesh_instance.get_surface_override_material(i)
+		print("mat", mat)
 		if mat == null:
 			continue
+			# mat = mesh_instance.mesh.surface_get_material(i)
 		mat = mat.duplicate()
 		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 		mat.albedo_color.a = 0.3
 		mesh_instance.set_surface_override_material(i, mat)
+		print("later i ", i)
 
 func reset_material(obj):
 	var mesh_instance = get_mesh_instance(obj)

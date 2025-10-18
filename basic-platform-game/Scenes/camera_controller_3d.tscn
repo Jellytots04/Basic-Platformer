@@ -16,7 +16,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 8)
 script = ExtResource("2_yaai3")
 
 [node name="RayCast3D" type="RayCast3D" parent="ZCamera"]
-target_position = Vector3(0, -0.5, -8)
+target_position = Vector3(0, -0.5, -4)
 debug_shape_thickness = 5
 
 [node name="YCamera" type="Camera3D" parent="."]
