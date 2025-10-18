@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://vbllqd3ufn2x"]
+[gd_scene load_steps=79 format=3 uid="uid://vbllqd3ufn2x"]
 
 [ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://Scripts/player.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://Scenes/camera_controller_3d.tscn" id="2_h2yge"]
@@ -207,8 +207,6 @@ radius = 0.4
 
 [sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
 size = Vector3(1, 2.5, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6bp64"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mycd"]
 size = Vector3(1, 2.5, 1)
@@ -563,7 +561,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.25, -2)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Stage/Building"]
 mesh = SubResource("BoxMesh_lquwl")
-surface_material_override/0 = SubResource("StandardMaterial3D_6bp64")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/Building"]
 shape = SubResource("BoxShape3D_7mycd")
