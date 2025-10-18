@@ -31,6 +31,9 @@ func _process(delta):
 
 func fade_material(obj):
 	var mesh_instance = get_mesh_instance(obj)
+
+	if mesh_instance == null:
+		return
 	print("Mesh:", mesh_instance.mesh)
 	print("Surface count:", mesh_instance.mesh.get_surface_count())
 	for i in range(mesh_instance.mesh.get_surface_count()):
@@ -38,9 +41,7 @@ func fade_material(obj):
 		var mat_base = mesh_instance.mesh.surface_get_material(i)
 		print("Surface ", i, "Override material:", mat_override)
 		print("Surface ", i, "Base material:", mat_base)
-	if mesh_instance == null:
-		return
-	
+		
 	var mesh = mesh_instance.mesh
 	if mesh == null:
 		return
@@ -89,9 +90,10 @@ func reset_material(obj):
 func get_mesh_instance(node):
 	if node is MeshInstance3D:
 		return node
-
-	var mesh_instance_child = node.get_node_or_null("MeshInstance3D")
-	if mesh_instance_child != null:
-		return mesh_instance_child
-
-	return node.find_child("MeshInstance3D")
+	
+	for child in node.get_children():
+		var mesh_instance= get_mesh_instance(child)
+		if mesh_instance != null:
+			return mesh_instance
+	
+	return null
