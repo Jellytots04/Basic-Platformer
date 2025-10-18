@@ -14,20 +14,21 @@ func _process(delta):
 	params.to = player.global_transform.origin
 	params.collide_with_areas = false
 	params.collide_with_bodies = true
-	var result
+	var results = []
 	
 	if self.current:
-		result = space_state.intersect_ray(params) # Returns the objects.
+		results = get_all_ray_hits(params, 10) # Returns the objects.
 	
 	# Restore previous faded objects
 	for obj in fadedObjects:
 		reset_material(obj)
 	fadedObjects.clear()
 	
-	if result and result.collider != player:
-		print("Collider hit:", result.collider)
-		fade_material(result.collider)
-		fadedObjects.append(result.collider)
+	for result in results:
+		if result and result.collider != player:
+			print("Collider hit:", result.collider)
+			fade_material(result.collider)
+			fadedObjects.append(result.collider)
 
 func fade_material(obj):
 	var mesh_instance = get_mesh_instance(obj)
@@ -97,3 +98,28 @@ func get_mesh_instance(node):
 			return mesh_instance
 	
 	return null
+
+func get_all_ray_hits(params: PhysicsRayQueryParameters3D, max_hits: int = 10) -> Array:
+	var results = []
+	var exclude = []
+	var start = params.from
+	var end = params.to
+	var direction = (end - start).normalized()
+	
+	for i in range(max_hits):
+		params.from = start
+		params.to = end
+		params.exclude = exclude
+
+		var result = get_world_3d().direct_space_state.intersect_ray(params)
+		if result == null or not result.has("collider"):
+			break  # No more hits, stop casting
+
+		# Store this valid hit result
+		results.append(result)
+		exclude.append(result["collider"])  # Use dictionary bracket syntax
+
+		# Move a bit forward past hit to continue next raycast
+		start = result.position + direction * 0.01
+
+	return results
