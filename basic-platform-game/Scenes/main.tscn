@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://vbllqd3ufn2x"]
+[gd_scene load_steps=104 format=3 uid="uid://vbllqd3ufn2x"]
 
 [ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://Scripts/player.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://Scenes/camera_controller_3d.tscn" id="2_h2yge"]
@@ -191,6 +191,30 @@ albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ueoa1"]
 albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_344ge"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kltya"]
+albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e08e2"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ynf5e"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e08e2"]
+albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_neg2b"]
+size = Vector3(1, 2.05, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r33sp"]
+size = Vector3(1, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdf80"]
+albedo_color = Color(0.50980395, 0.9137255, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ynf5e"]
 albedo_color = Color(0.5529412, 0.2901961, 0.23921569, 1)
@@ -509,6 +533,32 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ueoa1")
 transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 0.78, 0.9, 0)
 shape = SubResource("BoxShape3D_6iyac")
 
+[node name="DirtMound" type="StaticBody3D" parent="AssetpLANE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79662824, 1, -0.8756237)
+
+[node name="Dirt" type="MeshInstance3D" parent="AssetpLANE/DirtMound"]
+mesh = SubResource("BoxMesh_344ge")
+surface_material_override/0 = SubResource("StandardMaterial3D_kltya")
+
+[node name="DirtCollider" type="CollisionShape3D" parent="AssetpLANE/DirtMound"]
+shape = SubResource("BoxShape3D_e08e2")
+
+[node name="GrassMound" type="StaticBody3D" parent="AssetpLANE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95272374, 1, 0.406847)
+
+[node name="Dirt" type="MeshInstance3D" parent="AssetpLANE/GrassMound"]
+mesh = SubResource("BoxMesh_ynf5e")
+surface_material_override/0 = SubResource("StandardMaterial3D_e08e2")
+
+[node name="DirtCollider" type="CollisionShape3D" parent="AssetpLANE/GrassMound"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+shape = SubResource("BoxShape3D_neg2b")
+
+[node name="Grass" type="MeshInstance3D" parent="AssetpLANE/GrassMound"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
+mesh = SubResource("BoxMesh_r33sp")
+surface_material_override/0 = SubResource("StandardMaterial3D_hdf80")
+
 [node name="Stage" type="Node3D" parent="."]
 
 [node name="MainLand" type="StaticBody3D" parent="Stage"]
@@ -743,3 +793,19 @@ shape = SubResource("BoxShape3D_d1ilt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
 mesh = SubResource("BoxMesh_fdnlq")
 surface_material_override/0 = SubResource("StandardMaterial3D_wsu2k")
+
+[node name="GrassMound" type="StaticBody3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -5)
+
+[node name="Dirt" type="MeshInstance3D" parent="Stage/GrassMound"]
+mesh = SubResource("BoxMesh_ynf5e")
+surface_material_override/0 = SubResource("StandardMaterial3D_e08e2")
+
+[node name="DirtCollider" type="CollisionShape3D" parent="Stage/GrassMound"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+shape = SubResource("BoxShape3D_neg2b")
+
+[node name="Grass" type="MeshInstance3D" parent="Stage/GrassMound"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, 0)
+mesh = SubResource("BoxMesh_r33sp")
+surface_material_override/0 = SubResource("StandardMaterial3D_hdf80")
