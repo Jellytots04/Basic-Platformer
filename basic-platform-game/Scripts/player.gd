@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var ZCamera:Camera3D = $CameraController3D/ZCamera
 @onready var CameraNode:Node = $CameraController3D
 @onready var ColorChecker:Area3D = $Colorchecker
+@onready var ColliderChecker:Area3D = $Collidingchecker
 var currentcamera:Camera3D
 var suspend = false
 # Variables to be used when moving camera views, move player to their last original X Y Z pos
@@ -67,8 +68,14 @@ func _ready() -> void:
 func _input(event) -> void:
 	if self.is_on_floor():
 		if event.is_action_pressed("Xcamera"):
+			# Incomplete solution
 			lastX = self.global_position.x
-			self.global_position.x  = -1
+			print("Before Changes: ", lastX)
+			if _check_clear_X():
+				print("Checks out")
+				self.global_position.x  = -1
+			else:
+				print("Passage is blocked")
 		if event.is_action_pressed("Ycamera") and currentcamera == XCamera:
 			self.global_position.x = lastX
 		if event.is_action_pressed("Zcamera") and currentcamera == XCamera:
@@ -76,6 +83,19 @@ func _input(event) -> void:
 	if is_on_teleporter and event.is_action_pressed("ui_accept") and currentcamera == YCamera:
 		currentTeleporter.teleport_player(self)
 	pass
+
+# To be finished later
+func _check_clear_X() -> bool: # Will be used to check if the player has space to go to X camera mode
+	print("First Change: ", self.global_position.x)
+	self.global_position.x = -1
+	var overlap = ColliderChecker.get_overlapping_bodies()
+	print(overlap)
+	for body in overlap:
+		print(body)
+		if body != self:
+			self.global_position.x = lastX
+			return false 
+	return true
 
 func _on_body_entered(body: Node) -> void:
 	if body != self or body.is_ancestor_of(self):

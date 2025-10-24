@@ -113,13 +113,11 @@ func get_all_ray_hits(params: PhysicsRayQueryParameters3D, max_hits: int = 10) -
 
 		var result = get_world_3d().direct_space_state.intersect_ray(params)
 		if result == null or not result.has("collider"):
-			break  # No more hits, stop casting
+			break
 
-		# Store this valid hit result
 		results.append(result)
-		exclude.append(result["collider"])  # Use dictionary bracket syntax
+		exclude.append(result["collider"])
 
-		# Move a bit forward past hit to continue next raycast
 		start = result.position + direction * 0.01
 
 	return results
