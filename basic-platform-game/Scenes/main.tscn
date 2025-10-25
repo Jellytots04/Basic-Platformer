@@ -603,13 +603,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wsu2k")
 
 [node name="BoundaryBox" type="StaticBody3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
 
 [node name="WallX" type="CollisionShape3D" parent="Stage/BoundaryBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 1, 0)
 shape = SubResource("BoxShape3D_jkdf5")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/BoundaryBox"]
+[node name="WallY" type="CollisionShape3D" parent="Stage/BoundaryBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
 shape = SubResource("BoxShape3D_wsu2k")
 
@@ -623,6 +622,14 @@ shape = SubResource("BoxShape3D_jkdf5")
 
 [node name="WallX4" type="CollisionShape3D" parent="Stage/BoundaryBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 1, -8)
+shape = SubResource("BoxShape3D_jkdf5")
+
+[node name="WallX5" type="CollisionShape3D" parent="Stage/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 1, -16)
+shape = SubResource("BoxShape3D_jkdf5")
+
+[node name="WallX6" type="CollisionShape3D" parent="Stage/BoundaryBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 1, -16)
 shape = SubResource("BoxShape3D_jkdf5")
 
 [node name="TeleporterHolder" type="Node3D" parent="Stage"]

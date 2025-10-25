@@ -42,16 +42,16 @@ func _physics_process(delta: float) -> void:
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		if currentcamera == XCamera:
-			print("Camera X is positive") # Side scroller camera view
+			# print("Camera X is positive") # Side scroller camera view
 			velocity.z = -direction.x * SPEED
 
 		if currentcamera == YCamera:
-			print("Camera Y is positive") # Top down view for the game
+			# print("Camera Y is positive") # Top down view for the game
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
 
 		if currentcamera == ZCamera:
-			print("Camera Z is positive") # Think if this as the true view when you press w or up you walk forward
+			# print("Camera Z is positive") # Think if this as the true view when you press w or up you walk forward
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
 
@@ -70,11 +70,12 @@ func _input(event) -> void:
 		if event.is_action_pressed("Xcamera"):
 			# Incomplete solution
 			lastX = self.global_position.x
-			print("Before Changes: ", lastX)
+			print("Before Changes: ", ColliderChecker.global_position.x)
 			if _check_clear_X():
 				print("Checks out")
 				self.global_position.x  = -1
 			else:
+				self.global_position.x = lastX
 				print("Passage is blocked")
 		if event.is_action_pressed("Ycamera") and currentcamera == XCamera:
 			self.global_position.x = lastX
@@ -86,28 +87,29 @@ func _input(event) -> void:
 
 # To be finished later
 func _check_clear_X() -> bool: # Will be used to check if the player has space to go to X camera mode
-	print("First Change: ", self.global_position.x)
-	self.global_position.x = -1
+	ColliderChecker.global_position.x = -1
+	print("First Change: ", ColliderChecker.global_position.x)
 	var overlap = ColliderChecker.get_overlapping_bodies()
 	print(overlap)
 	for body in overlap:
 		print(body)
 		if body != self:
-			self.global_position.x = lastX
 			return false 
 	return true
 
 func _on_body_entered(body: Node) -> void:
 	if body != self or body.is_ancestor_of(self):
-		print("Stepped on:", body.name)
+		# print("Stepped on:", body.name)
 		_last_color_used(body)
 	else:
 		return
 
 func _on_body_exited(body: Node) -> void:
 	if body != self or body.is_ancestor_of(self):
-		print("Left:", body.name)
+		# print("Left:", body.name)
+		pass
 	
 func _last_color_used(body: Node) -> void:
 	# Your logic for color checking here, with access to the body node
-	print("Stepping on something:", body.name)
+	# print("Stepping on something:", body.name)
+	pass
