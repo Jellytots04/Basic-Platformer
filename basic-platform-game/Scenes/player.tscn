@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://nstnl5b4uk5j"]
+
+[ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://Scripts/player.gd" id="1_vgqql"]
+[ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://Scenes/camera_controller_3d.tscn" id="2_fkybt"]
+[ext_resource type="PackedScene" uid="uid://bsbljtp4s1qej" path="res://Scenes/character_body_mesh.tscn" id="3_x3wgy"]
+[ext_resource type="Script" uid="uid://cgth4q00xbic2" path="res://Scripts/character_body_mesh.gd" id="4_3smsa"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1bvp3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_21xkr"]
+radius = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6bp64"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("1_vgqql")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1bvp3")
+
+[node name="CameraController3D" parent="." instance=ExtResource("2_fkybt")]
+
+[node name="CharacterBodyMesh" parent="." instance=ExtResource("3_x3wgy")]
+script = ExtResource("4_3smsa")
+
+[node name="Colorchecker" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colorchecker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("SphereShape3D_21xkr")
+
+[node name="Collidingchecker" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collidingchecker"]
+shape = SubResource("SphereShape3D_6bp64")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -3,12 +3,12 @@ extends Camera3D
 @onready var player
 var fadedObjects = []
 var originalObject = {}
+@onready var raycast: RayCast3D = $RayCast3D
 
 func _ready() -> void:
 	player = $"../.." # Or use get_parent().get_parent() if needed
 
 func _process(delta):
-	var space_state = get_world_3d().direct_space_state
 	var params = PhysicsRayQueryParameters3D.new()
 	params.from = global_transform.origin
 	params.to = player.global_transform.origin

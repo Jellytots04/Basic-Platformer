@@ -1,9 +1,6 @@
-[gd_scene load_steps=105 format=3 uid="uid://vbllqd3ufn2x"]
+[gd_scene load_steps=99 format=3 uid="uid://vbllqd3ufn2x"]
 
-[ext_resource type="Script" uid="uid://bkxqvet52ocbh" path="res://Scripts/player.gd" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://j5c0p7ra284m" path="res://Scenes/camera_controller_3d.tscn" id="2_h2yge"]
-[ext_resource type="PackedScene" uid="uid://bsbljtp4s1qej" path="res://Scenes/character_body_mesh.tscn" id="3_h2yge"]
-[ext_resource type="Script" uid="uid://cgth4q00xbic2" path="res://Scripts/character_body_mesh.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://nstnl5b4uk5j" path="res://Scenes/player.tscn" id="1_8gbba"]
 [ext_resource type="Script" uid="uid://n7qpkfta034r" path="res://Scripts/y_mapcontroller.gd" id="5_lquwl"]
 [ext_resource type="Script" uid="uid://dlk6wiphux1u4" path="res://Scripts/TeleporterScript.gd" id="6_7mycd"]
 
@@ -19,13 +16,6 @@ background_mode = 2
 sky = SubResource("Sky_ig7tw")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1bvp3"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_21xkr"]
-radius = 0.1
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_6bp64"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
 albedo_color = Color(0.8894904, 0.9965851, 0.53634155, 1)
@@ -323,28 +313,8 @@ environment = SubResource("Environment_0xm2m")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" parent="." instance=ExtResource("1_8gbba")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1, 0.5, 0)
-script = ExtResource("2_0xm2m")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-shape = SubResource("CapsuleShape3D_1bvp3")
-
-[node name="CameraController3D" parent="Player" instance=ExtResource("2_h2yge")]
-
-[node name="CharacterBodyMesh" parent="Player" instance=ExtResource("3_h2yge")]
-script = ExtResource("4_1bvp3")
-
-[node name="Colorchecker" type="Area3D" parent="Player"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Colorchecker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-shape = SubResource("SphereShape3D_21xkr")
-
-[node name="Collidingchecker" type="Area3D" parent="Player"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Collidingchecker"]
-shape = SubResource("SphereShape3D_6bp64")
 
 [node name="MapHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0)
